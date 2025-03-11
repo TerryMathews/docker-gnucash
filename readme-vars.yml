@@ -1,17 +1,17 @@
 ---
 
 # project information
-project_name: freecad
-project_url: "https://www.freecad.org/"
-project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/freecad-logo.png"
-project_blurb: "[FreeCAD]({{ project_url }}) is a general-purpose parametric 3D computer-aided design (CAD) modeler and a building information modeling (BIM) software application with finite element method (FEM) support."
-project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
-project_categories: "3D Modeling"
+project_name: gnucash
+project_url: "https://www.gnucash.org/"
+project_logo: "https://gnucash.org/images/gnc-download.png"
+project_blurb: "[GnuCash]({{ project_url }}) GnuCash is personal and small-business financial-accounting software, freely licensed under the GNU GPL and available for GNU/Linux, BSD, Solaris, Mac OS X and Microsoft Windows."
+project_lsio_github_repo_url: "https://github.com/terrymathews/docker-{{ project_name }}"
+project_categories: "Finance"
 project_blurb_optional_extras_enabled: false
 # supported architectures
 available_architectures:
   - {arch: "{{ arch_x86_64 }}", tag: "latest"}
-  - {arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
+#  - {arch: "{{ arch_arm64 }}", tag: "arm64v8-latest"}
 # development version
 development_versions: false
 # container parameters
@@ -19,14 +19,14 @@ common_param_env_vars_enabled: true
 param_container_name: "{{ project_name }}"
 param_usage_include_env: true
 param_env_vars:
-  - {env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London."}
+  - {env_var: "TZ", env_value: "America/New_York", desc: "Specify a timezone to use EG Europe/London."}
 param_usage_include_vols: true
 param_volumes:
   - {vol_path: "/config", vol_host_path: "/path/to/config", desc: "Users home directory in the container, stores program settings and files."}
 param_usage_include_ports: true
 param_ports:
-  - {external_port: "3000", internal_port: "3000", port_desc: "FreeCAD desktop gui."}
-  - {external_port: "3001", internal_port: "3001", port_desc: "FreeCAD desktop gui HTTPS."}
+  - {external_port: "3000", internal_port: "3000", port_desc: "GnuCash desktop gui."}
+  - {external_port: "3001", internal_port: "3001", port_desc: "GnuCash desktop gui HTTPS."}
 opt_security_opt_param: true
 opt_security_opt_param_vars:
   - {run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker."}
@@ -47,7 +47,7 @@ app_setup_block: |
   **When resizing the window for this application the title bar will be offscreen, use alt+click and drag to move it (native to openbox)**
 # init diagram
 init_diagram: |
-  "freecad:latest": {
+  "gnucash:latest": {
     docker-mods
     base {
       fix-attr +\nlegacy cont-init
@@ -102,8 +102,7 @@ init_diagram: |
   Base Images: {
     "baseimage-kasmvnc:debianbookworm" <- "baseimage-debian:bookworm"
   }
-  "freecad:latest" <- Base Images
+  "gnucash:latest" <- Base Images
 # changelog
 changelogs:
-  - {date: "10.02.24:", desc: "Update Readme with new env vars and ingest proper PWA icon."}
-  - {date: "06.12.23:", desc: "Initial release."}
+  - {date: "03.11.25:", desc: "Initial release."}
